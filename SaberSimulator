@@ -1,0 +1,140 @@
+kVars = {}
+
+kVars.plr = game.Players.LocalPlayer
+
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+
+local MainGUI = Mercury:Create{
+    Name = "| Lxst Hub |",
+    Theme = Mercury.Themes.Dark,
+    Link = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+}
+
+MainGUI:Credit{
+	Name = "Kowalik",
+	Description = "Main Scripter",
+	V3rm = "https://v3rmillion.net/member.php?action=profile&uid=2820252",
+	Discord = "LxstKowalik#0001"
+}
+
+MainGUI:Credit{
+	Name = "Bruno",
+	Description = "Main Scripter",
+	V3rm = "https://v3rmillion.net/member.php?action=profile&uid=2678717",
+	Discord = "LxstAppleDev#0715"
+}
+
+MainGUI:Credit{
+	Name = "Project Lxst",
+	Description = "Official Project Lxst Discord Server",
+	Discord = "discord.gg/vJP2CZqPfb"
+}
+
+local mainTab = MainGUI:Tab{
+	Name = "Main",
+	Icon = "rbxassetid://8569322835"
+}
+
+local miscTab = MainGUI:Tab{
+	Name = "Miscellaneous",
+	Icon = "rbxassetid://8569322835"
+}
+
+mainTab:Toggle{
+	Name = "Auto Train",
+	StartingState = false,
+	Description = nil,
+	Callback = function(bool)
+        kVars.boolautoTrain = bool
+        if bool then fautoTrain() end
+    end
+}
+
+function fautoTrain()
+    spawn(function()
+        while kVars.boolautoTrain do
+            for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                if v:IsA("Tool") then
+                    v.RemoteClick:FireServer()
+                end
+            end
+            game:GetService("ReplicatedStorage").Events.Clicked:FireServer()
+            game:GetService("ReplicatedStorage").Events.UpdateData:InvokeServer()
+        end
+    end)
+end
+
+mainTab:Toggle{
+	Name = "Auto Sell",
+	StartingState = false,
+	Description = nil,
+	Callback = function(bool)
+        kVars.boolautoSell = bool
+        if bool then fautoSell() end
+    end
+}
+
+function fautoSell()
+    spawn(function()
+        while kVars.boolautoSell do
+            game:GetService("ReplicatedStorage").Events.Sell:FireServer()
+            game:GetService("ReplicatedStorage").Events.UpdateData:InvokeServer()
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(538.262024, 185.794769, 152.230942, -0.867805183, 0.0139459968, -0.49670881, -5.2872398e-08, 0.999606073, 0.0280658305, 0.496904552, 0.0243556798, -0.867463291)
+        end
+    end)
+end
+
+mainTab:Toggle{
+	Name = "Farm Crowns",
+	StartingState = false,
+	Description = nil,
+	Callback = function(bool)
+        kVars.boolautofarmCrowns = bool
+        if bool then fautofarmCrowns() end
+    end
+}
+
+function fautofarmCrowns()
+    spawn(function()
+        while kVars.boolautofarmCrowns do
+            game:GetService("ReplicatedStorage").Events.UpdateData:InvokeServer()
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(793.925964, 250.26535, 29.3515739, -0.82883662, -0.361313432, 0.427179754, 0, 0.763515353, 0.645789742, -0.5594908, 0.53525418, -0.632829428)
+        end
+    end)
+end
+
+miscTab:Button{
+	Name = "Infinite Jump",
+	Description = nil,
+	Callback = function()
+        _G.JumpHeight = 50;
+    
+        function Action(Object, Function) if Object ~= nil then Function(Object); end end
+        
+        UIS.InputBegan:connect(function(UserInput)
+            if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.Space then
+                Action(Player.Character.Humanoid, function(self)
+                    if self:GetState() == Enum.HumanoidStateType.Jumping or self:GetState() == Enum.HumanoidStateType.Freefall then
+                        Action(self.Parent.HumanoidRootPart, function(self)
+                            self.Velocity = Vector3.new(0, _G.JumpHeight, 0);
+                        end)
+                    end
+                end)
+            end
+        end)
+    end
+}
+
+miscTab:Button{
+	Name = "Anti AFK",
+	Description = nil,
+	Callback = function()
+        local vu = game:GetService("VirtualUser")
+        game:GetService("Players").LocalPlayer.Idled:connect(function()
+            vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+            wait(1)
+            vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+        end)
+    end
+}
