@@ -1,3 +1,5 @@
+kVars = {}
+
 local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
 
 
@@ -27,15 +29,39 @@ MainGUI:Credit{
 	Discord = "discord.gg/vJP2CZqPfb"
 }
 
+local FarmTab = MainGUI:Tab{
+    Name = "Farming",
+    Icon = "rbxassetid://10088146939"
+}
+
 local PlayerTab = MainGUI:Tab{
 	Name = "Local Player",
-	Icon = "rbxassetid://8569322835"
+	Icon = "rbxassetid://7992557358"
 }
 
 local TeleportTab = MainGUI:Tab{
 	Name = "Teleports",
-	Icon = "rbxassetid://8569322835"
+	Icon = "rbxassetid://6723742952"
 }
+
+FarmTab:Toggle{
+	Name = "Auto Clicker",
+	StartingState = false,
+	Description = nil,
+	Callback = function(bool)
+        kVars.boolClick = bool
+        if bool then fClick() end
+    end
+}
+
+function fClick()
+    spawn(function()
+        while kVars.boolClick do
+            wait()
+            game:GetService("ReplicatedStorage").Events.Tap:FireServer()
+        end
+    end)
+end
 
 PlayerTab:Slider{
 	Name = "Walk Speed",
@@ -59,7 +85,7 @@ PlayerTab:Slider{
 
 PlayerTab:Button{
 	Name = "Add Gamepasses",
-	Description = "self explanatory lol",
+	Description = nil,
 	Callback = function()
         for i,v in pairs(game.Players.LocalPlayer.Boosts:GetDescendants()) do
             if v.Name == "isActive" then
