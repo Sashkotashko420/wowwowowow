@@ -1,0 +1,193 @@
+kVars = {}
+
+kVars.plr = game.Players.LocalPlayer
+
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+
+local MainGUI = Mercury:Create{
+    Name = "| Lxst Hub |",
+    Theme = Mercury.Themes.Dark,
+    Link = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+}
+
+MainGUI:Credit{
+	Name = "Bruno",
+	Description = "Main Scripter",
+	V3rm = "https://v3rmillion.net/member.php?action=profile&uid=2678717",
+	Discord = "LxstAppleDev#0715"
+}
+
+MainGUI:Credit{
+	Name = "Project Lxst",
+	Description = "Official Project Lxst Discord Server",
+	Discord = "discord.gg/vJP2CZqPfb"
+}
+
+local mainTab = MainGUI:Tab{
+	Name = "Main",
+	Icon = "rbxassetid://8569322835"
+}
+
+local teleportTab = MainGUI:Tab{
+	Name = "Teleport",
+	Icon = "rbxassetid://6723742952"
+}
+
+local ranks = {}
+for i, v in pairs(game:GetService("Workspace").areaTeleportParts:GetChildren()) do
+    table.insert(teleports, tostring(v))
+end
+
+mainTab:Toggle{
+	Name = "Auto Swing",
+	StartingState = false,
+	Description = nil,
+	Callback = function(a)
+        aa = a
+        while aa do task.wait()
+            local ohString1 = "swingKatana"
+            game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(ohString1)
+        end
+    end
+}
+
+mainTab:Toggle{
+	Name = "Auto Sell",
+	StartingState = false,
+	Description = nil,
+	Callback = function(b)
+        bb = b
+        while bb do task.wait(2)
+            game:GetService("Workspace").sellAreaCircles.sellAreaCircle16.circleInner.CFrame = CFrame.new(50,50,50)
+            game:GetService("Workspace").sellAreaCircles.sellAreaCircle16.circleInner.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+        end
+    end
+}
+
+mainTab:Toggle{
+	Name = "Auto Buy Swords",
+	StartingState = false,
+	Description = nil,
+	Callback = function(c)
+        cc = c
+        while cc do task.wait()
+            local ohString1 = "buyAllSwords"
+            local ohString2 = "Blazing Vortex Island"
+    
+            game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(ohString1, ohString2)
+        end
+    end
+}
+
+mainTab:Toggle{
+	Name = "Auto Buy Belts",
+	StartingState = false,
+	Description = nil,
+	Callback = function(d)
+        dd = d
+        while dd do task.wait()
+            local ohString1 = "buyAllBelts"
+            local ohString2 = "Blazing Vortex Island"
+    
+            game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(ohString1, ohString2)
+         end
+    end
+}
+
+mainTab:Toggle{
+	Name = "Auto Buy Ranks",
+	StartingState = false,
+	Description = nil,
+	Callback = function(e)
+        ee = e
+        while ee do task.wait()
+            for i = 1,#ranks do 
+                local ohString1 = "buyRank"
+                local ohString2 = ranks[i]
+                
+                game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(ohString1, ohString2)
+            end
+        end
+    end
+}
+
+mainTab:Toggle{
+	Name = "Auto Buy Skills",
+	StartingState = false,
+	Description = nil,
+	Callback = function(f)
+        ff = f
+        while ff do task.wait()
+            local ohString1 = "buyAllSkills"
+            local ohString2 = "Blazing Vortex Island"
+        
+            game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(ohString1, ohString2)
+        end
+    end
+}
+
+mainTab:Toggle{
+	Name = "Auto Buy Hoops",
+	StartingState = false,
+	Description = nil,
+	Callback = function(g)
+        gg = g
+        while gg do task.wait()
+            for i,v in pairs(game:GetService("Workspace").Hoops:GetChildren()) do
+                v.touchPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+                wait(0.02)
+            end
+        end
+    end
+}
+
+mainTab:Button{
+	Name = "Auto Chest",
+	Description = nil,
+	Callback = function()
+        for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+            if string.match(v.Name,"Chest") and v:IsA("Model") then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.circleOuter.Position)
+                game.Players.LocalPlayer.Character.Humanoid.Jump = true
+                wait(0.5)
+            end 
+        end
+    end
+}
+
+teleportTab:Button{
+	Name = "Discover all Islands",
+	Description = nil,
+	Callback = function()
+        for i = 1,#teleports do 
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Workspace").areaTeleportParts[teleports[i]].Position)
+            wait()
+        end
+    end
+}
+
+teleportTab:Textbox{
+	Name = "Player Name",
+	Callback = function(value)
+        kVars.teleportToPlayer = value
+        print(value)
+    end
+}
+
+teleportTab:Button{
+	Name = "Teleport",
+	Description = nil,
+	Callback = function()
+        if game.Players.LocalPlayer.Character:WaitForChild('HumanoidRootPart') ~= nil then
+            for i, v in pairs(game:GetService('Players'):GetChildren()) do
+                local hrp = game:GetService('Players').LocalPlayer.Character:WaitForChild('HumanoidRootPart')
+                if string.find(string.lower(v.DisplayName), string.lower(kVars.teleportToPlayer)) then
+                    hrp.CFrame = v.Character.HumanoidRootPart.CFrame
+                elseif string.find(string.lower(v.Name), string.lower(kVars.teleportToPlayer)) then
+                    hrp.CFrame = v.Character.HumanoidRootPart.CFrame
+                end
+            end
+        end
+    end
+}
