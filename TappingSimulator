@@ -1,0 +1,239 @@
+kVars = {}
+kVars.lp = game:GetService('Players').LocalPlayer
+kVars.rs = game:GetService('ReplicatedStorage')
+kVars.vu = game:GetService('VirtualUser')
+kVars.HttpService = game:GetService("HttpService")
+
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("| Lxst Hub | " .. game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name , Sentinel)
+
+
+
+local pageFarm = Window:NewTab("Farm")
+local sectionAutoFarm = pageFarm:NewSection("Auto Farm")
+local sectionRebirth = pageFarm:NewSection("Rebirth")
+local sectionBuy = pageFarm:NewSection("Buy")
+
+local pageEggs = Window:NewTab("Eggs")
+local sectionEggs = pageEggs:NewSection("Auto Open")
+
+local pageTeleport = Window:NewTab("Teleport")
+local sectionLocations = pageTeleport:NewSection("Locations")
+
+local pagePlayer = Window:NewTab("Player")
+local sectionPlayerStats = pagePlayer:NewSection("Stats")
+local sectionTpToPlayer = pagePlayer:NewSection("Teleport To Player")
+
+local pageCredits = Window:NewTab("Credits")
+local sectionCredits = pageCredits:NewSection("Credits")
+
+sectionAutoFarm:NewToggle("Auto Tap", "self explanatory lol", function(bool)
+    kVars.boolTap = bool
+    if bool then fTap() end
+end)
+
+function fTap()
+    spawn(function()
+        while kVars.boolTap do
+            wait()
+            game:GetService("ReplicatedStorage").Events.Tap:FireServer()
+        end
+    end)
+end
+
+local rebirthList = {"1","5","10","20","100","500","2000","4500"}
+kVars.selectedRebirth = nil
+
+sectionRebirth:NewDropdown("Rebirth Amount", "self explanatory lol", rebirthList, function(txt)
+    kVars.selectedRebirth = txt
+end)
+
+sectionRebirth:NewToggle("Rebirth", "self explanatory lol", function(bool)
+    kVars.boolRebirth = bool
+    if bool then fRebirths() end
+end)
+
+function fRebirths()
+    spawn(function()
+        while kVars.boolRebirth do
+            wait()
+            if kVars.selectedRebirth ~= nil and kVars.selectedRebirth ~= "Rebirth Amount" then
+                game:GetService("ReplicatedStorage").Events.Rebirth:FireServer(kVars.selectedRebirth)
+            end
+        end
+    end)
+end
+
+sectionBuy:NewToggle("Rebirth Buttons Upgrade", "self explanatory lol", function(bool)
+    kVars.boolRebirthUpgrades = bool
+    if bool then fRebirthUpgrades() end
+end)
+
+function fRebirthUpgrades()
+    spawn(function()
+        while kVars.boolRebirthUpgrades do
+            wait()
+            game:GetService("ReplicatedStorage").Events.Upgrade:FireServer("rebirthUpgrades")
+        end
+    end)
+end
+
+
+sectionBuy:NewToggle("Jumps Upgrade", "self explanatory lol", function(bool)
+    kVars.boolJumpsUpgrade = bool
+    if bool then fJumpsUpgrade() end
+end)
+
+function fJumpsUpgrade()
+    spawn(function()
+        while kVars.boolJumpsUpgrade do
+            wait()
+            game:GetService("ReplicatedStorage").Events.Upgrade:FireServer("jumpsUpgrade")
+        end
+    end)
+end
+
+sectionBuy:NewToggle("Gems Upgrade", "self explanatory lol", function(bool)
+    kVars.boolJumpsUpgrade = bool
+    if bool then fGemUpgrade() end
+end)
+
+function fGemUpgrade()
+    spawn(function()
+        while kVars.boolGemUpgrade do
+            wait()
+            game:GetService("ReplicatedStorage").Events.Upgrade:FireServer("gemMultiplierUpgrade")
+        end
+    end)
+end
+
+sectionBuy:NewToggle("Storage Upgrade", "self explanatory lol", function(bool)
+    kVars.boolJumpsUpgrade = bool
+    if bool then fStorageUpgrade() end
+end)
+
+function fStorageUpgrade()
+    spawn(function()
+        while kVars.boolStorageUpgrade do
+            wait()
+            game:GetService("ReplicatedStorage").Events.Upgrade:FireServer("storageUpgrade")
+        end
+    end)
+end
+
+
+kVars.eggsList = {
+    [1] = {name = "Starter", price = "200"},
+    [2] = {name = "Wood Egg", price = "2500"},
+    [3] = {name = "Jungle Egg", price = "150K"},
+    [4] = {name = "Forest Egg", price = "1.5M"},
+    [5] = {name = "Bee Egg", price = "5M"},
+    [6] = {name = "Swamp Egg", price = "80M"},
+    [7] = {name = "Snow Egg", price = "800M"},
+    [8] = {name = "Desert Egg", price = "300B"},
+    [9] = {name = "Death Egg", price = "2T"},
+    [10] = {name = "Beach Egg", price = "15T"},
+    [11] = {name = "2M Egg", price = "600T"},
+    [12] = {name = "Mine Egg", price = "2Qa"},
+    [13] = {name = "Cloud Egg", price = "25Qa"},
+    [14] = {name = "Dominus Egg", price = "800T"}
+}
+
+kVars.eggPriceList = {}
+for i,v in ipairs(kVars.eggsList) do
+    table.insert(kVars.eggPriceList, v.price)
+end
+
+kVars.selectedEgg = "Starter"
+
+sectionEggs:NewDropdown("Select Egg to Open", "self explanatory lol", kVars.eggPriceList, function(value)
+    kVars.selectedEgg = value
+end)
+
+sectionEggs:NewToggle("Open 3 Eggs", "self explanatory lol", function(bool)
+    kVars.boolOpen3 = bool
+end)
+
+sectionEggs:NewToggle("Open Egg", "self explanatory lol", function(bool)
+    kVars.boolOpenEgg = bool
+    if bool then fOpenEgg() end
+end)
+
+function fOpenEgg()
+    spawn(function()
+        while kVars.boolOpenEgg do
+            wait()
+            for i,v in pairs(kVars.eggsList) do
+                if v.price == kVars.selectedEgg then
+                    if kVars.boolOpen3 then
+                        game:GetService("ReplicatedStorage").Events.HatchEgg:FireServer({},v.name,3)
+                    else
+                        game:GetService("ReplicatedStorage").Events.HatchEgg:FireServer({},v.name,1)
+                    end
+                end
+            end
+        end
+    end)
+end
+
+kVars.teleportLocations = {
+    [1] = {name = "Spawn", cf = CFrame.new(-193.519, 63.174, -461.695)},
+    [2] = {name = "Forest Island", cf = CFrame.new(-165, 979, -440)},
+    [3] = {name = "Flower Island", cf = CFrame.new(-179, 1517, -647)},
+    [4] = {name = "Swamp Island", cf = CFrame.new(-263, 2116, -656)},
+    [5] = {name = "Snow Island", cf = CFrame.new(-241, 2937, -470)},
+    [6] = {name = "Desert Island", cf = CFrame.new(-203, 4228, -780)},
+    [7] = {name = "Death Island", cf = CFrame.new(-319, 5418, -480)},
+    [8] = {name = "Beach Island", cf = CFrame.new(-183, 6875, -495)},
+    [9] = {name = "Mine Island", cf = CFrame.new(-281, 8368, -484)},
+    [10] = {name = "Cloud Island", cf = CFrame.new(-335, 11238, -238)},
+    [11] = {name = "Dominus Island", cf = CFrame.new(699, 125, 2161)}
+}
+
+for i,v in ipairs(kVars.teleportLocations) do
+    sectionLocations:NewButton(v.name, "self explanatory lol", function()
+        kVars.lp.Character.HumanoidRootPart.CFrame = v.cf
+    end)
+end
+
+sectionPlayerStats:NewSlider("Walk Speed", "self explanatory lol", 500, 0, function(value) -- 500 (MaxValue) | 0 (MinValue)
+    kVars.lp.Character:WaitForChild('Humanoid').WalkSpeed = value
+end)
+
+sectionPlayerStats:NewSlider("Jump Power", "self explanatory lol", 500, 0, function(value) -- 500 (MaxValue) | 0 (MinValue)
+    kVars.lp.Character:WaitForChild('Humanoid').JumpPower = value
+end)
+
+sectionPlayerStats:NewToggle("Inf Jump", "self explanatory lol", function(bool)
+    kVars.boolInfJump = bool
+end)
+
+kVars.InfJumpConnect = game:GetService("UserInputService").JumpRequest:connect(function()
+        if kVars.boolInfJump and kVars.lp.Character:FindFirstChild("Humanoid") then
+                kVars.lp.Character:FindFirstChildOfClass('Humanoid'):ChangeState("Jumping")
+        end
+end)
+
+sectionTpToPlayer:NewTextBox("Player Name", "self explanatory lol", function(value)
+    kVars.teleportToPlayer = value
+    print(value)
+end)
+
+sectionTpToPlayer:NewButton("Teleport", "self explanatory lol", function()
+    if game.Players.LocalPlayer.Character:WaitForChild('HumanoidRootPart') ~= nil then
+        for i, v in pairs(game:GetService('Players'):GetChildren()) do
+            local hrp = game:GetService('Players').LocalPlayer.Character:WaitForChild('HumanoidRootPart')
+            if string.find(string.lower(v.DisplayName), string.lower(kVars.teleportToPlayer)) then
+                hrp.CFrame = v.Character.HumanoidRootPart.CFrame
+            elseif string.find(string.lower(v.Name), string.lower(kVars.teleportToPlayer)) then
+                hrp.CFrame = v.Character.HumanoidRootPart.CFrame
+            end
+        end
+    end
+end)
+
+sectionCredits:NewLabel("Main Scripter | LxstBruno Bucciarati#0715")
+sectionCredits:NewLabel("Helper | LxstLoad#7600")
+sectionCredits:NewLabel("UI Library | Kavo UI Library")
+sectionCredits:NewLabel("UI Library Creator | xHeptc")
