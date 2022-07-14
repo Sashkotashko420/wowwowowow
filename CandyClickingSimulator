@@ -1,0 +1,77 @@
+kVars = {}
+
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+
+local MainGUI = Mercury:Create{
+    Name = "| Lxst Hub |",
+    Theme = Mercury.Themes.Dark,
+    Link = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+}
+
+MainGUI:Credit{
+	Name = "Bruno",
+	Description = "Main Scripter",
+	V3rm = "https://v3rmillion.net/member.php?action=profile&uid=2678717",
+	Discord = "LxstAppleDev#0715"
+}
+
+MainGUI:Credit{
+	Name = "Project Lxst",
+	Description = "Official Project Lxst Discord Server",
+	Discord = "discord.gg/vJP2CZqPfb"
+}
+local mainTab = MainGUI:Tab{
+	Name = "Main",
+	Icon = "rbxassetid://8569322835"
+}
+
+mainTab:Toggle{
+	Name = "Click",
+	StartingState = false,
+	Description = nil,
+	Callback = function(bool)
+        kVars.boolClick = bool
+        if bool then fClick() end
+    end
+}
+
+function fClick()
+    spawn(function()
+        while kVars.boolClick do
+            wait()
+            game:GetService("ReplicatedStorage").Events.ClickEvent:InvokeServer()
+        end
+    end)
+end
+
+kVars.varRebirth = 1
+mainTab:Textbox{
+	Name = "Rebirths",
+	Callback = function(value)
+        local checkIfNumber = tonumber(value)
+        if checkIfNumber then
+            kVars.varRebirth = value
+        end
+    end
+}
+
+mainTab:Toggle{
+	Name = "Rebirth",
+	StartingState = false,
+	Description = nil,
+	Callback = function(bool)
+        kVars.boolRebirth = bool
+        if bool then fRebirth() end
+    end
+}
+
+function fRebirth()
+    spawn(function()
+        while kVars.boolRebirth do
+            wait()
+            if kVars.varRebirth == nil then return end
+            game:GetService("ReplicatedStorage").Events.Rebirth:InvokeServer(kVars.varRebirth)
+        end
+    end)
+end
