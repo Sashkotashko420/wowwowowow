@@ -1,0 +1,36 @@
+if game.PlaceId == 7560156054 then
+
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/ClickerSimulator')))()
+
+elseif game.PlaceId == 9498006165 then
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/TappingSimulator'))()
+
+elseif game.PlaceId == 2116452049 then
+
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/SteveOnePiece'))()
+
+elseif game.PlaceId == 5852812686 then
+
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/CandyClickingSimulator'))()
+
+elseif game.PlaceId == 8304191830 then
+
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/AnimeAdventures'))()
+
+elseif game.PlaceId == 3956818381 then
+
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/NinjaLegends'))()
+
+elseif game.PlaceId == 3956818381 then
+
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/borntodiekuv/Ninja/main/Legends'))()
+
+elseif game.PlaceId == 8232438881 then
+
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/ThiefSimulator'))()
+
+elseif game.PlaceId == 3823781113 then
+
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/SaberSimulator'))()
+
+end
