@@ -59,7 +59,7 @@ PlayerTab:Slider{
 
 PlayerTab:Button{
 	Name = "Add Gamepasses",
-	Description = "Gives you Double Gems, Double Luck, Double Clicks, Faster Auto Clicker, Double Shiny Chance",
+	Description = "self explanatory lol",
 	Callback = function()
         for i,v in pairs(game.Players.LocalPlayer.Boosts:GetDescendants()) do
             if v.Name == "isActive" then
