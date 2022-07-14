@@ -1,123 +1,173 @@
-local TeleportService = game:GetService("TeleportService")
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("| Lxst Hub | " .. game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name , Sentinel)
 
--- 
--- had to do this so the clicker sim wont smash(yes sex) with this
-if game.PlaceId == 'sex' then
-    local Main = Window:NewTab("Main")
-    local MainSection = Main:NewSection("")
+local MainGUI = Mercury:Create{
+    Name = "| Lxst Hub |",
+    Theme = Mercury.Themes.Dark,
+    Link = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+}
 
-    MainSection:NewButton("ButtonText", "ButtonInfo", function()
-        print("Clicked")
-    end)
-end
+MainGUI:Credit{
+	Name = "Kowalik",
+	Description = "Main Scripter",
+	V3rm = "https://v3rmillion.net/member.php?action=profile&uid=2820252",
+	Discord = "LxstKowalik#0001"
+}
 
---CLICKER SIMULATOR 
-if game.PlaceId == 7560156054 then
-    autotpplayer = false 
-    function autotp()
-        spawn(function()
-            while autotpplayer == true do 
-                task.wait(0.01)
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[selectedplayer].Character.HumanoidRootPart.CFrame
-            end
-        end)
+MainGUI:Credit{
+	Name = "Bruno",
+	Description = "Main Scripter",
+	V3rm = "https://v3rmillion.net/member.php?action=profile&uid=2678717",
+	Discord = "LxstAppleDev#0715"
+}
+
+MainGUI:Credit{
+	Name = "Project Lxst",
+	Description = "Official Project Lxst Discord Server",
+	Discord = "discord.gg/vJP2CZqPfb"
+}
+
+local PlayerTab = MainGUI:Tab{
+	Name = "Local Player",
+	Icon = "rbxassetid://8569322835"
+}
+
+local TeleportTab = MainGUI:Tab{
+	Name = "Teleports",
+	Icon = "rbxassetid://8569322835"
+}
+
+PlayerTab:Slider{
+	Name = "Walk Speed",
+	Default = 16,
+	Min = 0,
+	Max = 500,
+	Callback = function(s)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
     end
-local TeleportService = game:GetService("TeleportService")
+}
 
-local HomeTab = Window:NewTab("Home")
-local welcome = HomeTab:NewSection("Welcome To Lxst Hub!")
+PlayerTab:Slider{
+	Name = "Jump Power",
+	Default = 50,
+	Min = 0,
+	Max = 500,
+	Callback = function(s)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+    end
+}
 
--- Player Tab
-local PlayerTab = Window:NewTab("Local Player")
-local pSection = PlayerTab:NewSection("Local Player")
-pSection:NewSlider("Walkspeed", "Haha speed go brr", 500, 16, function(s)
-    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
-end)
-pSection:NewSlider("JumpPower", "Haha jumppower go brr", 500, 50, function(s)
-    game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
-end)
-
-local auto = PlayerTab:NewSection("Auto Farm")
-auto:NewToggle("Auto Clicker (maybe someday)", "Auto Clicks", function(state)
-    
-end)
-
-local other = PlayerTab:NewSection("Other")
-other:NewButton("Add Gamepasses", "Gives you Double Gems, Double Luck, Double Clicks, Faster Auto Clicker, Double Shiny Chance", function()
-    for i,v in pairs(game.Players.LocalPlayer.Boosts:GetDescendants()) do
-        if v.Name == "isActive" then
-            v.Value = true
+PlayerTab:Button{
+	Name = "Add Gamepasses",
+	Description = "Gives you Double Gems, Double Luck, Double Clicks, Faster Auto Clicker, Double Shiny Chance",
+	Callback = function()
+        for i,v in pairs(game.Players.LocalPlayer.Boosts:GetDescendants()) do
+            if v.Name == "isActive" then
+                v.Value = true
+            end
         end
-     end
-end)
+    end
+}
 
--- Teleports Tab
-local TeleportsTab = Window:NewTab("Teleports")
 
--- Players
-local PlayerTeleports = TeleportsTab:NewSection("Players")
 local players = {}
 for i,v in pairs(game.Players:GetChildren()) do
     table.insert(players, v.Name)
 end
-PlayerTeleports:NewDropdown("Select a Player", "", players, function(currentOption)
-    selectedplayer = currentOption
-end)
-PlayerTeleports:NewToggle("Loop Teleport To Player", "Loop Teleports You To Player", function(x)
-    autotpplayer = x 
-    if autotpplayer then 
-        autotp()
+
+
+local MyDropdown = TeleportTab:Dropdown{
+	Name = "Select a Player",
+	StartingText = "Select...",
+	Description = nil,
+	Items = {
+		players
+	},
+	Callback = function(currentOption)
+        selectedplayer = currentOption
     end
-end)
-PlayerTeleports:NewButton("Teleport", "Teleport You To Selected Player", function()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[selectedplayer].Character.HumanoidRootPart.CFrame
-end)
+}
 
-local TeleportsSection = TeleportsTab:NewSection("Worlds")
--- Worlds
-
-TeleportsSection:NewDropdown("Select World", "", {"Home World", "Tech World", "Time World", "Ocean World"}, function(currentOption)
-sworld = currentOption
-end)
-TeleportsSection:NewButton("Teleport To World", "Teleports you to your selected world", function()
-    if sworld == "Home World" then 
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Lobby.teleport.CFrame
-    elseif sworld == "Tech World" then 
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").techWorld.Portal.teleportPosition.CFrame
-    elseif sworld == "Time World" then 
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").timeWorld.timePortal.teleportPosition.CFrame
-    elseif sworld == "Ocean World" then 
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").oceanWorld.teleport.CFrame
+TeleportTab:Toggle{
+	Name = "Loop Teleport To Player",
+	StartingState = false,
+	Description = "Loop Teleports You To Player",
+	Callback = function(x)
+        autotpplayer = x 
+        if autotpplayer then 
+            autotp()
+        end
     end
-end)
+}
 
---Zones
-local ZonesTeleports = TeleportsTab:NewSection("Zones")
+autotpplayer = false 
+function autotp()
+    spawn(function()
+        while autotpplayer == true do 
+            task.wait(0.01)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[selectedplayer].Character.HumanoidRootPart.CFrame
+        end
+    end)
+end
+
+TeleportTab:Button{
+	Name = "Teleport",
+	Description = "Teleports you to selected player",
+	Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[selectedplayer].Character.HumanoidRootPart.CFrame
+    end
+}
+
+local MyDropdown = TeleportTab:Dropdown{
+	Name = "Select World",
+	StartingText = "Select...",
+	Description = nil,
+	Items = {
+		{"Home World", "Tech World", "Time World", "Ocean World"}
+	},
+	Callback = function(currentOption)
+        sworld = currentOption
+    end
+}
+
+TeleportTab:Button{
+	Name = "Teleport To World",
+	Description = "Teleports you to your selected world",
+	Callback = function()
+        if sworld == "Home World" then 
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Lobby.teleport.CFrame
+        elseif sworld == "Tech World" then 
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").techWorld.Portal.teleportPosition.CFrame
+        elseif sworld == "Time World" then 
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").timeWorld.timePortal.teleportPosition.CFrame
+        elseif sworld == "Ocean World" then 
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").oceanWorld.teleport.CFrame
+        end
+    end
+}
+
 local zones = {}
 for i,v in pairs(game.Workspace.Zones:GetChildren()) do
     table.insert(zones, v.Name)
 end
-ZonesTeleports:NewDropdown("Select Zone", "", zones, function(currentOption)
----@diagnostic disable-next-line: undefined-global
-    selectedzone = currentOption
-end)
-ZonesTeleports:NewButton("Teleport", "Teleports you to the world you selected.", function()
+
+local MyDropdown = TeleportTab:Dropdown{
+	Name = "Select Zone",
+	StartingText = "Select...",
+	Description = nil,
+	Items = {
+        zones
+	},
+	Callback = function(currentOption)
+        ---@diagnostic disable-next-line: undefined-global
+        selectedzone = currentOption
+    end
+}
+
+TeleportTab:Button{
+	Name = "Teleport",
+	Description = "Teleports you to the world you selected",
+	Callback = function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Zones[selectedzone].teleport.CFrame
-end)
-
-end
-
-local CreditsPage = Window:NewTab("Credits")
-local CreditsSection = CreditsPage:NewSection("Credits")
-
-CreditsSection:NewLabel("Main Scripter | LxstKowalik#0001")
-CreditsSection:NewLabel("Scripter | LxstSavi0r#0777")
-CreditsSection:NewLabel("Scripter | LxstAppleDev#0715")
-CreditsSection:NewLabel("UI Library | Kavo UI Library")
-CreditsSection:NewLabel("UI Library Creator | xHeptc")
-CreditsSection:NewButton("Copy Discord Link", "yeah", function()
-    setclipboard("discord.gg/vJP2CZqPfb");
-end)
+    end
+}
