@@ -1,0 +1,389 @@
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+
+local MainMainGUI = Mercury:Create{
+    Name = "| Lxst Hub |",
+    Theme = Mercury.Themes.Dark,
+    Link = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+}
+
+MainMainGUI:Credit{
+	Name = "Bruno",
+	Description = "Main Scripter",
+	V3rm = "https://v3rmillion.net/member.php?action=profile&uid=2678717",
+	Discord = "LxstAppleDev#0715"
+}
+
+MainMainGUI:Credit{
+	Name = "Project Lxst",
+	Description = "Official Project Lxst Discord Server",
+	Discord = "discord.gg/vJP2CZqPfb"
+}
+
+local questTab = MainMainGUI:Tab{
+	Name = "TP Quest Heads",
+	Icon = "rbxassetid://553680044"
+}
+
+local mobTab = MainMainGUI:Tab{
+	Name = "TP Mobs",
+	Icon = "rbxassetid://4799887091"
+}
+
+local weaponTab = MainMainGUI:Tab{
+	Name = "TP Weapons",
+	Icon = "rbxassetid://7485051715"
+}
+
+local styleTab = MainMainGUI:Tab{
+	Name = "TP Styles",
+	Icon = "rbxassetid://6723742952"
+}
+
+questTab:Button{
+	Name = "TP Big head boy",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.ClassName, "Model") and string.find(v.Name, 'Big head boy') then
+                    v:FindFirstChild("Head").Anchored = true
+                    v:FindFirstChild("Head").CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-5)
+                end
+            end
+    end
+}
+
+questTab:Button{
+	Name = "TP Injured pirate",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.ClassName, "Model") and string.find(v.Name, 'Injured pirate') then
+                    v:FindFirstChild("Head").Anchored = true
+                    v:FindFirstChild("Head").CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-5)
+                end
+            end
+    end
+}
+
+questTab:Button{
+	Name = "TP Sad noob",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.ClassName, "Model") and string.find(v.Name, 'Sad noob') then
+                    v:FindFirstChild("Head").Anchored = true
+                    v:FindFirstChild("Head").CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-5)
+                end
+            end
+    end
+}
+
+questTab:Button{
+	Name = "TP Sword noob",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.ClassName, "Model") and string.find(v.Name, 'Sword noob') then
+                    v:FindFirstChild("Head").Anchored = true
+                    v:FindFirstChild("Head").CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-5)
+                end
+            end
+    end
+}
+
+questTab:Button{
+	Name = "TP Bob",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.ClassName, "Model") and string.find(v.Name, 'Bob') then
+                    v:FindFirstChild("Head").Anchored = true
+                    v:FindFirstChild("Head").CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-5)
+                end
+            end
+    end
+}
+
+questTab:Button{
+	Name = "TP Gun noob",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.ClassName, "Model") and string.find(v.Name, 'Gun noob') then
+                    v:FindFirstChild("Head").Anchored = true
+                    v:FindFirstChild("Head").CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-5)
+                end
+            end
+    end
+}
+
+questTab:Button{
+	Name = "TP That noob",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.ClassName, "Model") and string.find(v.Name, 'That noob') then
+                    v:FindFirstChild("Head").Anchored = true
+                    v:FindFirstChild("Head").CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-5)
+                end
+            end
+    end
+}
+
+mobTab:Button{
+	Name = "TP Thief lvl:5",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Thief") then
+                    v:FindFirstChild("Torso").Anchored = true
+                    v:FindFirstChild("Torso").CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+mobTab:Button{
+	Name = "TP Buggy pirate lvl:30",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Buggy pirate") then
+                    v:FindFirstChild("Torso").Anchored = true
+                    v:FindFirstChild("Torso").CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+mobTab:Button{
+	Name = "TP Attacking Noob lvl:100",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Attacking Noob") then
+                    v:FindFirstChild("Torso").Anchored = true
+                    v:FindFirstChild("Torso").CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+mobTab:Button{
+	Name = "TP Marine lvl:200",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Marine") then
+                    v:FindFirstChild("Torso").Anchored = true
+                    v:FindFirstChild("Torso").CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+mobTab:Button{
+	Name = "TP Fishmen lvl:450",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Fishmen") then
+                    v:FindFirstChild("Torso").Anchored = true
+                    v:FindFirstChild("Torso").CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+mobTab:Button{
+	Name = "TP Big Full Body Buso Noob lvl:500",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Big Full Body Buso Noob") then
+                    v:FindFirstChild("Torso").Anchored = true
+                    v:FindFirstChild("Torso").CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+mobTab:Button{
+	Name = "TP Luffy lvl:1000",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Luffy") then
+                    v:FindFirstChild("Torso").Anchored = true
+                    v:FindFirstChild("Torso").CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+weaponTab:Button{
+	Name = "TP Wooden Sword price:100",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Wooden Sword") then
+                   v:FindFirstChild('Head').Anchored = true
+                   v:FindFirstChild('Head').CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+weaponTab:Button{
+	Name = "TP Flintlock price:2500",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Flintlock") then
+                   v:FindFirstChild('Head').Anchored = true
+                   v:FindFirstChild('Head').CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+
+weaponTab:Button{
+	Name = "TP Katana price:5000",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Katana") then
+                   v:FindFirstChild('Head').Anchored = true
+                   v:FindFirstChild('Head').CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+
+weaponTab:Button{
+	Name = "TP Cutlass price:7500",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Cutlass") then
+                   v:FindFirstChild('Head').Anchored = true
+                   v:FindFirstChild('Head').CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+
+weaponTab:Button{
+	Name = "TP Rifle price:10000",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Rifle") then
+                   v:FindFirstChild('Head').Anchored = true
+                   v:FindFirstChild('Head').CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+
+weaponTab:Button{
+	Name = "TP Pipe price:30000",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Pipe") then
+                   v:FindFirstChild('Head').Anchored = true
+                   v:FindFirstChild('Head').CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+
+weaponTab:Button{
+	Name = "TP Jitte price:65000",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Jitte") then
+                   v:FindFirstChild('Head').Anchored = true
+                   v:FindFirstChild('Head').CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+
+weaponTab:Button{
+	Name = "TP Nonosama Bo price:150000",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Nonosama Bo") then
+                   v:FindFirstChild('Head').Anchored = true
+                   v:FindFirstChild('Head').CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+
+weaponTab:Button{
+	Name = "TP Bisento price:3000000",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Bisento") then
+                   v:FindFirstChild('Head').Anchored = true
+                   v:FindFirstChild('Head').CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+
+weaponTab:Button{
+	Name = "TP Gryphon price:7500000",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Gryphon") then
+                   v:FindFirstChild('Head').Anchored = true
+                   v:FindFirstChild('Head').CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+
+
+styleTab:Button{
+	Name = "TP Black Leg price:10000",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Black Leg") then
+                   v:FindFirstChild('Head').Anchored = true
+                   v:FindFirstChild('Head').CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
+
+styleTab:Button{
+	Name = "TP Ryusoken price:75000",
+	Description = nil,
+	Callback = function()
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if string.find(v.Name, "Ryusoken") then
+                   v:FindFirstChild('Head').Anchored = true
+                   v:FindFirstChild('Head').CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-2)
+                end
+            end
+    end
+}
