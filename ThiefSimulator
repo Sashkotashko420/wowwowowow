@@ -1,0 +1,127 @@
+kVars = {}
+
+kVars.plr = game.Players.LocalPlayer
+
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+
+local MainGUI = Mercury:Create{
+    Name = "| Lxst Hub |",
+    Theme = Mercury.Themes.Dark,
+    Link = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+}
+
+MainGUI:Credit{
+	Name = "Bruno",
+	Description = "Main Scripter",
+	V3rm = "https://v3rmillion.net/member.php?action=profile&uid=2678717",
+	Discord = "LxstAppleDev#0715"
+}
+
+MainGUI:Credit{
+	Name = "Project Lxst",
+	Description = "Official Project Lxst Discord Server",
+	Discord = "discord.gg/vJP2CZqPfb"
+}
+
+local mainTab = MainGUI:Tab{
+	Name = "Main",
+	Icon = "rbxassetid://8569322835"
+}
+
+local teleportTab = MainGUI:Tab{
+	Name = "Teleport",
+	Icon = "rbxassetid://6723742952"
+}
+
+mainTab:Toggle{
+	Name = "Auto Rob NPCs",
+	StartingState = false,
+	Description = nil,
+	Callback = function(d)
+        dd = d
+        while dd do task.wait()
+            for i,v in pairs(workspace:GetChildren()) do
+                if string.match(v.Name,"Base") and v.HumanoidRootPart then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    fireproximityprompt(v.HumanoidRootPart.ProximityPrompt)
+                end
+            end
+        end
+    end
+}
+
+mainTab:Toggle{
+	Name = "Auto Sell",
+	StartingState = false,
+	Description = nil,
+	Callback = function(a)
+        aa = a
+        while aa do task.wait()
+            for _,v in pairs(game:GetService("Workspace").Sells.World1.Sell:GetDescendants()) do
+                if v:IsA("TouchTransmitter") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Parent, 0)
+                    wait()
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Parent, 1)
+                    wait()
+                end
+            end
+        end
+    end
+}
+
+mainTab:Toggle{
+	Name = "ATM Farm",
+	StartingState = false,
+	Description = nil,
+	Callback = function(c) 
+        cc = c
+        while cc do task.wait()
+            coroutine.wrap(function()
+                for i,v in pairs(game:GetService("Workspace").Map.ATMs:GetDescendants()) do
+                    if v.Name == "Healthbar" then
+                        game:GetService("ReplicatedStorage").FrameworkReplicated.DataStreams:FindFirstChild("GameTaskCompleted_Functionv.07"):InvokeServer(v.Parent)
+                    end
+                end
+            end)()
+        end
+    end
+}
+
+mainTab:Button{
+	Name = "Auto Claim Quests",
+	Description = nil,
+	Callback = function()
+        for i,v in pairs(workspace:GetChildren()) do
+            if string.match(v.Name,"Base") and v.HumanoidRootPart then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Jobs.World1.Jobs.CFrame
+                fireproximityprompt(v.HumanoidRootPart.ProximityPrompt)
+            end
+        end
+    end
+}
+
+teleportTab:Textbox{
+	Name = "Player Name",
+	Callback = function(value)
+        kVars.teleportToPlayer = value
+        print(value)
+    end
+}
+
+teleportTab:Button{
+	Name = "Teleport",
+	Description = nil,
+	Callback = function()
+        if game.Players.LocalPlayer.Character:WaitForChild('HumanoidRootPart') ~= nil then
+            for i, v in pairs(game:GetService('Players'):GetChildren()) do
+                local hrp = game:GetService('Players').LocalPlayer.Character:WaitForChild('HumanoidRootPart')
+                if string.find(string.lower(v.DisplayName), string.lower(kVars.teleportToPlayer)) then
+                    hrp.CFrame = v.Character.HumanoidRootPart.CFrame
+                elseif string.find(string.lower(v.Name), string.lower(kVars.teleportToPlayer)) then
+                    hrp.CFrame = v.Character.HumanoidRootPart.CFrame
+                end
+            end
+        end
+    end
+}
