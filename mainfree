@@ -32,21 +32,10 @@ elseif game.PlaceId == 8232438881 then
 elseif game.PlaceId == 3823781113 then
 
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/SaberSimulator'))()
+    
+elseif game.PlaceId == 9976239895 then
 
-end
-
-
-if game.PlaceId == 5714256147 then 
-
-    loadstring(game:HttpGet(('https://raw.githubusercontent.com/Sashkotashko420/wowwowowowpremium/main/ZombieSimulator')))()
-
-elseif game.PlaceId == 4972091010 then
-
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowowpremium/main/ZombieUprising'))()
-
-elseif game.PlaceId == 7277614831 then
-
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowowpremium/main/CandyEatingSimulator'))()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/GumballFactoryTycoon'))()
 
 end
 
