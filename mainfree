@@ -37,6 +37,10 @@ elseif game.PlaceId == 9976239895 then
 
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/GumballFactoryTycoon'))()
 
+elseif game.PlaceId == 6299805723 then
+
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/AnimeFightersSimulator'))()
+
 end
 
 local Data = {
