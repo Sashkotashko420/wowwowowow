@@ -1,0 +1,164 @@
+kVars = {}
+local player = game:GetService("Players").LocalPlayer
+local ownedTycoon = player.TycoonOwned.Value
+local currentMoney
+
+local function setMoney()
+    local value = moneyValue.Value
+    if string.find(value, ".") then
+        local M, B, T = 1000000, 1000000000, 1000000000000
+        if string.find(value, "M") then
+            local realValue = string.sub(value, 1, string.find(value, "M") - 1)
+            
+            currentMoney = tonumber(realValue) * M
+
+            return
+        elseif string.find(value, "B") then
+            local realValue = string.sub(value, 1, string.find(value, "B") - 1)
+            
+            currentMoney = tonumber(realValue) * B
+            
+            return
+        elseif string.find(value, "T") then
+            local realValue = string.sub(value, 1, string.find(value, "T") - 1)
+            
+            currentMoney = tonumber(realValue) * T
+            
+            return
+        end
+    end
+    
+    currentMoney = string.gsub(moneyValue.Value, ",", "")
+    currentMoney = tonumber(currentMoney)
+end
+
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+
+local MainGUI = Mercury:Create{
+    Name = "| Lxst Hub |",
+    Theme = Mercury.Themes.Dark,
+    Link = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+}
+
+MainGUI:Credit{
+	Name = "Bruno",
+	Description = "Main Scripter",
+	V3rm = "https://v3rmillion.net/member.php?action=profile&uid=2678717",
+	Discord = "LxstAppleDev#0715"
+}
+
+MainGUI:Credit{
+	Name = "Project Lxst",
+	Description = "Official Project Lxst Discord Server",
+	Discord = "discord.gg/vJP2CZqPfb"
+}
+
+local mainTab = MainGUI:Tab{
+	Name = "Main",
+	Icon = "rbxassetid://8569322835"
+}
+
+local miscTab = MainGUI:Tab{
+	Name = "Miscellaneous",
+	Icon = "rbxassetid://7743869612"
+}
+
+mainTab:Toggle{
+	Name = "Auto Buy",
+	StartingState = false,
+	Description = nil,
+	Callback = function(bool)
+        kVars.boolbuy = bool
+        if bool then fautobuy() end
+    end
+}
+
+function fautobuy()
+    spawn(function()
+        while kVars.boolbuy do
+            wait()
+            for _,btn in next, ownedTycoon.Buttons:GetChildren() do
+                setMoney()
+                if btn:IsA("Folder") then
+                    for _,BTN in next, btn:GetChildren() do
+                        if BTN:FindFirstChild("Value") and BTN.Value.Value <= currentMoney and not BTN:FindFirstChild("Robux") then
+                            fireinterest(BTN.Button, true)
+                        end
+                    end
+                elseif btn:FindFirstChild("Value") and btn.Value.Value <= currentMoney and not btn:FindFirstChild("Robux") then
+                    fireinterest(btn.Button, true)
+                end
+            end
+        end
+    end)
+end
+
+mainTab:Toggle{
+	Name = "Auto Pickup Gumballs From Gumball Tree",
+	StartingState = false,
+	Description = "Only works if you have the Gumball Tree",
+	Callback = function(bool)
+        kVars.boolpickupgumball = bool
+        if bool then fpickupgumball() end
+    end
+}
+
+function fpickupgumball()
+    spawn(function()
+        while kVars.boolpickupgumball do
+            wait()
+            for i ,v in pairs(game:GetService("Workspace").Tycoons[game.Players.LocalPlayer.Team.Name].GumballTree:GetDescendants()) do
+                if v:IsA("TouchTransmitter") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Parent, 0)
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Parent, 1)
+                end
+            end
+        end
+    end)
+end
+
+mainTab:Toggle{
+	Name = "Auto Convert Gumballs",
+	StartingState = false,
+	Description = nil,
+	Callback = function(bool)
+        kVars.boolconvert = bool
+        if bool then fconvert() end
+    end
+}
+
+function fconvert()
+    spawn(function()
+        while kVars.boolconvert do
+            wait()
+            for i,v in pairs(game.Workspace.Tycoons[game.Players.LocalPlayer.Team.Name].Gumballs:GetChildren()) do
+                if v.Name == "Gumball" and isnetworkowner(v) then
+                    v.CFrame = Game.Workspace.Tycoons[game.Players.LocalPlayer.Team.Name].Interact.Guminator.Converter.CFrame
+                end
+            end
+        end
+    end)
+end
+
+
+
+
+miscTab:Button{
+	Name = "Complete Easy Obby",
+	Description = nil,
+	Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-187.66159057617188, 2.9999988079071045, 322.68902587890625)
+    end
+}
+
+miscTab:Button{
+	Name = "Complete Hard Obby",
+	Description = nil,
+	Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(162.76344299316406, 3.999915361404419, 338.3460388183594)
+    end
+}
+
+
+setsimulationradius(1000,1000)
