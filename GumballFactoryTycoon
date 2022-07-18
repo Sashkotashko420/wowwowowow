@@ -144,21 +144,44 @@ end
 
 
 
-miscTab:Button{
+miscTab:Toggle{
 	Name = "Complete Easy Obby",
-	Description = nil,
-	Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-187.66159057617188, 2.9999988079071045, 322.68902587890625)
+	Description = "Leave this toggled on to auto complete obby.",
+	Callback = function(bool)
+        kVars.booleasyobby = bool
+        if bool then feasyobby() end
     end
 }
 
-miscTab:Button{
+function feasyobby()
+    spawn(function()
+        while kVars.booleasyobby do
+            wait()
+            if game:GetService("Workspace").Obbies.EasyObby.Timer.SurfaceGui.TextLabel.Text == "OPEN!" then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-187.66159057617188, 2.9999988079071045, 322.68902587890625)
+            end
+        end
+    end)
+end
+
+miscTab:Toggle{
 	Name = "Complete Hard Obby",
-	Description = nil,
-	Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(162.76344299316406, 3.999915361404419, 338.3460388183594)
+	Description = "Leave this toggled on to auto complete obby.",
+	Callback = function(bool)
+        kVars.boolhardobby = bool
+        if bool then fhardobby() end
     end
 }
 
+function fhardobby()
+    spawn(function()
+        while kVars.boolhardobby do
+            wait()
+            if game:GetService("Workspace").Obbies.HardObby.Timer.SurfaceGui.TextLabel.Text == "OPEN!" then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(162.76344299316406, 3.999915361404419, 338.3460388183594)
+            end
+        end
+    end)
+end
 
 setsimulationradius(1000,1000)
