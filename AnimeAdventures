@@ -1,3 +1,4 @@
+kVars = {}
 local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
 
 
@@ -25,186 +26,87 @@ local mainTab = MainGUI:Tab{
 	Icon = "rbxassetid://8569322835"
 }
 
-local placeanywhereTab = MainGUI:Tab{
-	Name = "Place Anywhere",
-	Icon = "rbxassetid://7733993147"
-}
-
 local miscTab = MainGUI:Tab{
-	Name = "Miscellaneous",
+	Name = "Main",
 	Icon = "rbxassetid://7743869612"
 }
 
 mainTab:Toggle{
-	Name = "Auto Abilities",
+	Name = "Auto Kill Enemies",
 	StartingState = false,
 	Description = nil,
-	Callback = function(Value)
-        a = Value
-        while a do task.wait()
-            pcall(function()
-                for i, v in next, game:GetService("Workspace")["_UNITS"]:GetChildren() do
-                    if v:IsA("Model") and v._stats.players.Value == game.Players.LocalPlayer then
-                        local args = {
-                            [1] = v
-                        }
-    
-                        game:GetService("ReplicatedStorage").endpoints.client_to_server.use_active_attack:InvokeServer(unpack(args))
+	Callback = function(bool)
+        kVars.boolkillenemies = bool
+        if bool then fkillenemies() end
+    end
+}
+
+function fkillenemies()
+    spawn(function()
+        while kVars.boolkillenemies do
+            wait()
+            for i,v in pairs(workspace.Pets:GetDescendants()) do
+                if v.Name == "Owner" then
+                    if v.Value == game.Players.LocalPlayer then
+                        if v.Parent.Attacking.Value == nil then
+                            game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = 0
+                            local tweenInfo = TweenInfo.new(
+                            0
+                            )
+                            local t = game.TweenService:Create(game.Players.LocalPlayer.Character.PrimaryPart, tweenInfo, {CFrame = CFrame.new(
+                            ClosestPart().CFrame.Position + Vector3.new(0,0,0)
+                            )})
+                            game.Players.LocalPlayer.Character.PrimaryPart.Anchored = true 
+                            t:Play()
+                            wait(0)
+                            mouse1press() wait() mouse1release()
+                        else
+                            game.Players.LocalPlayer.Character.PrimaryPart.Anchored = false
+                            game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = 128
+                        end
                     end
                 end
-            end)
-        end
-    end
-}
-
-local Unit = {}
-
-for i, v in next, game:GetService("Workspace")["_UNITS"]:GetChildren() do
-    if v:IsA("Model") and v._stats.player.Value == game.Players.LocalPlayer then
-        if not table.find(Unit, tostring(v)) then
-            table.insert(Unit, tostring(v))
-        end
-    end
-end
-
-local MyDropdown = mainTab:Dropdown{
-	Name = "Select Unit",
-	StartingText = "Select...",
-	Description = nil,
-	Items = {
-        table.insert(Unit)
-	},
-	Callback = function(Value)
-        getgenv().unit = Value
-    end
-}
-
-local function getClosest()
-    local dist, thing = math.huge
-    for i, v in next, game:GetService("Workspace")["_UNITS"]:GetChildren() do
-        if v:IsA("Model") and v.Name == unit then
-            local mag = 
-                (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
-            if mag < dist then
-                dist = mag
-                thing = v
             end
         end
-    end
-    return thing
-end
-
-local function getClosest1()
-    local dist, thing = math.huge
-    for i, v in next, game:GetService("Workspace")["_UNITS"]:GetChildren() do
-        if v:IsA("Model") then
-            local mag =
-                (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
-            if mag < dist then
-                dist = mag
-                thing = v
-            end
-        end
-    end
-    return thing
+    end)
 end
 
 mainTab:Toggle{
-	Name = "Auto Upgrade Nearest",
+	Name = "Auto CLick Damage",
 	StartingState = false,
 	Description = nil,
-	Callback = function(Value)
-        bb = Value
-        while bb do task.wait()
-            local args = {
-                [1] = getClosest()
-            }
-    
-            game:GetService("ReplicatedStorage").endpoints.client_to_server.upgrade_unit_ingame:InvokeServer(unpack(args))
-        end
+	Callback = function(bool)
+        kVars.boolclickdamage = bool
+        if bool then fclickdamage() end
     end
 }
 
-mainTab:Button{
-	Name = "Refresh Units",
-	Description = nil,
-	Callback = function()
-        table.clear(Unit)
-        for i, v in next, game:GetService("Workspace")["_UNITS"]:GetChildren() do
-            if v:IsA("Model") and v._stats.player.Value == game.Players.LocalPlayer then
-                if not table.find(Unit, tostring(v)) then
-                    table.insert(Unit, tostring(v))
-                    drop:SetOptions(Unit)
-                end
-            end
+function fclickdamage()
+    spawn(function()
+        while kVars.boolkillenemies do
+            wait()
+            game:GetService("ReplicatedStorage").Remote.ClickerDamage:FireServer()
         end
-    end
-}
+    end)
+end
 
-mainTab:Toggle{
-	Name = "Auto Sell Nearest",
+miscTab:Toggle{
+	Name = "Anti Afk",
 	StartingState = false,
 	Description = nil,
-	Callback = function(Value)
-        bbbb = Value
-        while bbbb do task.wait()
-            pcall(function()
-                local args = {
-                    [1] = getClosest1()
-                }
-                
-                game:GetService("ReplicatedStorage").endpoints.client_to_server.sell_unit_ingame:InvokeServer(unpack(args))
-            end)
+	Callback = function(bool)
+        kVars.boolantiafk = bool
+        if bool then fantiafk() end
+    end
+}
+
+function fantiafk()
+    spawn(function()
+        while kVars.boolantiafk do
+            wait()
+            local bb=game:service'VirtualUser'
+            bb:CaptureController()
+            bb:ClickButton2(Vector2.new())
         end
-    end
-}
-
-local MyDropdown = placeanywhereTab:Dropdown{
-	Name = "Select Unit",
-	StartingText = "Select...",
-	Description = "Place a unit then press Refresh Unit",
-	Items = {
-        table.insert(Unit)
-	},
-	Callback = function(Value)
-        getgenv().id = Value
-    end
-}
-
-placeanywhereTab:Button{
-	Name = "Place Unit",
-	Description = nil,
-	Callback = function()
-        local function RoundNumber(Number, Divider)
-            Divider = Divider or 1
-            return (math.floor((Number/Divider)+0.5)*Divider)
-            end
-        for i, v in next, game:GetService("Workspace")["_UNITS"]:GetChildren() do
-            if v.Name == id then
-        local args = {
-            [1] = v._stats.uuid.Value,
-            [2] = CFrame.new(Vector3.new(RoundNumber(game.Players.LocalPlayer.Character.Torso.Position.X,1),RoundNumber(game.Players.LocalPlayer.Character.Torso.Position.Y-1.5,1),RoundNumber(game.Players.LocalPlayer.Character.Torso.Position.Z,1)))
-        }
-        
-        game:GetService("ReplicatedStorage").endpoints.client_to_server.spawn_unit:InvokeServer(unpack(args))
-            end
-        end
-    end
-}
-
-placeanywhereTab:Button{
-	Name = "Refresh Units",
-	Description = nil,
-	Callback = function()
-        for i, v in next, game:GetService("Workspace")["_UNITS"]:GetChildren() do
-            if v:IsA("Model") and v._stats.player.Value == game.Players.LocalPlayer then
-                if not table.find(Unit, tostring(v)) then
-                    table.insert(Unit, tostring(v))
-                    u:SetOptions(Unit)
-                end
-            end
-        end
-    end
-}
-
-game.Players.LocalPlayer.PlayerGui.MessageGui:Destroy()
+    end)
+end
