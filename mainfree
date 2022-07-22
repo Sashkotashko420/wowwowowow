@@ -44,7 +44,7 @@ elseif game.PlaceId == 6299805723 then
 end
 
 local Data = {
-	["content"] = "***`someone used the lxst hub`***",
+	["content"] = "***`someone used the oblivion hub`***",
 	["embeds"] = {{
 		["author"] = {
 			["name"] = name,
