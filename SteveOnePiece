@@ -1,8 +1,8 @@
 local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
 
 
-local MainMainGUI = Mercury:Create{
-    Name = "| Lxst Hub |",
+local MainGUI = Mercury:Create{
+    Name = "| Oblivion Hub |",
     Theme = Mercury.Themes.Dark,
     Link = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 }
