@@ -14,10 +14,10 @@ MainMainGUI:Credit{
 	Discord = "LxstAppleDev#0715"
 }
 
-MainMainGUI:Credit{
-	Name = "Project Lxst",
-	Description = "Official Project Lxst Discord Server",
-	Discord = "discord.gg/vJP2CZqPfb"
+MainGUI:Credit{
+	Name = "Project Oblivion",
+	Description = "Official Project Oblivion Discord Server",
+	Discord = "discord.com/invite/cKsuBrYBzA"
 }
 
 local questTab = MainMainGUI:Tab{
