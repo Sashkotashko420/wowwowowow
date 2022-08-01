@@ -36,7 +36,7 @@ local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeei
 
 
 local MainGUI = Mercury:Create{
-    Name = "| Oblivion Hub |",
+    Name = "| Lxst Hub |",
     Theme = Mercury.Themes.Dark,
     Link = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 }
@@ -49,9 +49,9 @@ MainGUI:Credit{
 }
 
 MainGUI:Credit{
-	Name = "Project Oblivion",
-	Description = "Official Project Oblivion Discord Server",
-	Discord = "discord.com/invite/cKsuBrYBzA"
+	Name = "Project Lxst",
+	Description = "Official Project Lxst Discord Server",
+	Discord = "discord.gg/vJP2CZqPfb"
 }
 
 local mainTab = MainGUI:Tab{
@@ -180,6 +180,26 @@ function fhardobby()
             if game:GetService("Workspace").Obbies.HardObby.Timer.SurfaceGui.TextLabel.Text == "OPEN!" then
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(162.76344299316406, 3.999915361404419, 338.3460388183594)
             end
+        end
+    end)
+end
+
+mainTab:Toggle{
+	Name = "Auto Rebirth",
+	StartingState = false,
+	Description = nil,
+	Callback = function(bool)
+        kVars.boolrebirth = bool
+        if bool then frebirth() end
+    end
+}
+local ownedTycoon = player.TycoonOwned.Value
+
+function frebirth()
+    spawn(function()
+        while kVars.boolrebirth and ownedTycoon.Buttons.Rebirth.Button do
+            wait()
+            ownedTycoon.Buttons.Rebirth.Button.TouchInterest
         end
     end)
 end
