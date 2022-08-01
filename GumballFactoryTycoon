@@ -199,7 +199,7 @@ function frebirth()
     spawn(function()
         while kVars.boolrebirth and ownedTycoon.Buttons.Rebirth.Button do
             wait()
-            ownedTycoon.Buttons.Rebirth.Button.TouchInterest
+            fireinterest(ownedTycoon.Buttons.Rebirth.Button.TouchInterest, true)
         end
     end)
 end
