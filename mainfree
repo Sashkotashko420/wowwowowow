@@ -41,6 +41,14 @@ elseif game.PlaceId == 6299805723 then
 
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/AnimeFightersSimulator'))()
 
+elseif game.PlaceId == 5326405001 then
+
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/BaseBattles'))()
+
+elseif game.PlaceId == 5130598377 then
+
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/Sashkotashko420/wowwowowow/main/AUT'))()
+
 end
 
 local Data = {
